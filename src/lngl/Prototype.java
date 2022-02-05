@@ -10,6 +10,8 @@ public class Prototype{
     private int allowedGuesses;
     private int guesses;
 
+    private String badStr = "*BAD*";
+
 
     public Prototype(String word, int length){
         this.word = word;
@@ -64,11 +66,7 @@ public class Prototype{
      *          returns a string representing guess accuracy.
      */
     public String guess(String userGuess){
-        if(userGuess.length() != word.length()){
-            String badStr = "";
-            for(int i = 0; i < word.length(); i++){
-                badStr += "#";
-            }
+        if(isValidGuess(userGuess)){
             return badStr;
         }
         String str = "";
@@ -107,7 +105,9 @@ public class Prototype{
         if(userGuess.length() != word.length()){
             return false;
         }
-        //if
+        /* if word list for length L does not contain the userGuess,
+        *  then return false. @ rebecca deal with this
+        */
 
         return true;
     }
