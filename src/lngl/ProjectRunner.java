@@ -7,14 +7,14 @@ import java.util.Scanner;
 public class ProjectRunner {
     public static void main(String[] args){
         // do stuff
-        String word = "kittens";
+        String word = "kitty";
         Prototype game = new Prototype(word, word.length());
 
 
         Scanner input = new Scanner(System.in);
         boolean unsolved = true;
         while(unsolved){
-            System.out.println("Enter your guess of length " + word.length() + ": ");
+            System.out.println("LEN " + word.length() + " | guess "+ game.getGuesses() + ": ");
             String currGuess = input.nextLine();
             String hint = game.guess(currGuess);
             System.out.println(hint);
