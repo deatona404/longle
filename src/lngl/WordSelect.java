@@ -16,12 +16,12 @@ public class WordSelect {
     public WordSelect(String file) {
         this.fileName = file;
         length = 0;
-        try{
-        Scanner scan = new Scanner(new File(file)); //i hate scanners
-        }
-        catch (Exception e){
-            System.out.println("Error locating file in WordSelect constructor");
-        }
+        // try{
+        // Scanner scan = new Scanner(new File(fileName)); //i hate scanners
+        // }
+        // catch (Exception e){
+        //     System.out.println("Error locating file in WordSelect constructor");
+        // }
         this.lengthOfFile();
         this.getWord();
     }
@@ -29,15 +29,17 @@ public class WordSelect {
      * Calculates the length of the file in lines.
      */
     public void lengthOfFile() {
-        BufferedReader reader;
+        Scanner reader;
         try{
-            reader = new BufferedReader(new FileReader(fileName));
-            while (reader.readLine() != null)
-            length++;
+            reader = new Scanner(new File(fileName));
+            while (reader.hasNextLine()){
+                reader.nextLine();
+                length++;
+            }
         reader.close();
         }
-        catch (Exception e){
-            System.out.println("Error locating file in lengthOfFile");
+        catch (FileNotFoundException e){
+             System.out.println("Error locating file in lengthOfFile");
         }
     }
     /**
