@@ -9,10 +9,11 @@ public class ProjectRunner {
     public static void main(String[] args){
         // create scanner for basic input until gui is running
         Scanner input = new Scanner(System.in);
-        // ask for length difficulty ------------------------------------- HELP
-        //System.out.println("What length word would you like to guess?");
-        //int desiredLength = input.nextInt();
-        int desiredLength = 2;
+
+        // ask for length difficulty 
+        System.out.println("What length word would you like to guess?");
+        int desiredLength = input.nextInt();
+        input.nextLine();
         String fileToSearch = "./longle/src/" + desiredLength + "Letter.txt";
         
         // Initialize game and word selector
@@ -26,7 +27,7 @@ public class ProjectRunner {
         while(unsolved){
             System.out.println("LEN " + word.length() + " | guess "+ (game.getGuesses() + 1) + ": ");
             String currGuess = input.nextLine();
-            String hint = game.guess(currGuess);
+            String hint = game.guess(currGuess, fileToSearch);
             System.out.println(hint);
             if(game.solved(hint)){
                 System.out.println("You've solved the word!");

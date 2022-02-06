@@ -1,4 +1,9 @@
 package longle.src.lngl;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 //package longle;
 /**
  * This class explores the basic function of the guessing game.
@@ -17,9 +22,17 @@ public class Prototype{
     public static final String BAD_LENGTH = "*WRONG LENGTH*";
     public static final String NO_GUESSES = "*NO GUESSES LEFT*";
     public static final String BAD_READ = "*COULD NOT LOCATE WORD";
+    public static final String BAD_WORD = "*GUESS AN ACTUAL WORD*";
 
 
     // constructor ------------------------------------------------------------
+    /**
+     * Constructs a new Prototype Longle game.
+     * @param word
+     *          word for the game session
+     * @param length
+     *          length of the word
+     */
     public Prototype(String word, int length){
         this.word = word;
         this.length = length;
@@ -63,6 +76,14 @@ public class Prototype{
         return this.guesses;
     }
     
+    /**
+     * Sets the current guesses to something else
+     * @param g
+     *          new value for guesses
+     */
+    public void setGuesses(int g){
+        this.guesses = g;
+    }
  
     /**
      * Allows the user to guess a word. Returns a string formatted so that
@@ -74,12 +95,16 @@ public class Prototype{
      * @return
      *          returns a string representing guess accuracy.
      */
-    public String guess(String userGuess){
+    public String guess(String userGuess, String fileName){
+        userGuess = userGuess.toUpperCase();
         if(!isValidLength(userGuess)){
             return BAD_LENGTH;
         }
         if(!hasGuessesLeft()){
             return NO_GUESSES;
+        }
+        if(!isValidWord(userGuess, fileName)){
+            return BAD_WORD;
         }
         String str = "";
         for(int i = 0; i < word.length(); i++){
@@ -154,11 +179,26 @@ public class Prototype{
      * @return
      *          <code>true</code> if word is valid, else <code>false</code>
      */
-    public boolean isValidWord(String userGuess){
+    public boolean isValidWord(String userGuess, String fileName){
         /* if word list for length L does not contain the userGuess,
-        *  then return false. @ rebecca deal with this
+        *  then return false.
         */
-        return true; // temporary
+        Scanner reader;
+        try{
+            reader = new Scanner(new File(fileName));
+            while (reader.hasNextLine()){
+                String line = reader.nextLine();
+                if(line.equals(userGuess)){
+                    return true;
+                }
+            }
+        reader.close();
+        }
+        catch (FileNotFoundException e){
+             System.out.println("Error locating file in lengthOfFile");
+        }
+
+        return false; // temporary
     }
 
 }
