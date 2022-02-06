@@ -5,23 +5,30 @@ package longle.src.lngl;
  */
 public class Prototype{
 
+    // instance variables -----------------------------------------------------
     private String word;
     private int length;
     private int allowedGuesses;
     private int guesses;
+    
 
-    private String badStr = "*BAD*";
+    // constants --------------------------------------------------------------
+    private final String BAD_LENGTH = "*WRONG LENGTH*";
+    private final String NO_GUESSES = "*NO GUESSES LEFT*";
 
 
+    // constructor ------------------------------------------------------------
     public Prototype(String word, int length){
         this.word = word;
         this.length = length;
 
         guesses = 0;
         allowedGuesses = length + 1;
-        // do stuff if necessary?
+        // adjust allowed guesses if needed
     }
 
+    // methods ----------------------------------------------------------------
+    
     /**
      * Gets the puzzle's secret word.
      * @return the secret word
@@ -66,8 +73,11 @@ public class Prototype{
      *          returns a string representing guess accuracy.
      */
     public String guess(String userGuess){
-        if(isValidGuess(userGuess)){
-            return badStr;
+        if(!isValidLength(userGuess)){
+            return BAD_LENGTH;
+        }
+        if(!hasGuessesLeft()){
+            return NO_GUESSES;
         }
         String str = "";
         for(int i = 0; i < word.length(); i++){
@@ -81,15 +91,35 @@ public class Prototype{
                 str += "#";
             }
         }
-
+        this.guesses++;
         return str;
     }
+
+    /**
+     * Returns the number of guesses remaining.
+     * @return
+     *      the guesses remaining
+     */
+    public int guessesLeft(){
+        return allowedGuesses - guesses;
+    }
+
+    /**
+     * Checks if the user has any remaining guesses.
+     * @return
+     *          <code>true</code> if guesses remain, else <code>false</code>
+     */
+    public boolean hasGuessesLeft(){
+        return guesses < allowedGuesses;
+    }
+
+
     /**
      * Returns true if the word is solved. 
      * @param guessReturn
      *          guess after being filtered through the guess() method
      * @return
-     *      true if solved, else false.
+     *      <code>true</code> if solved, else <code>false</code>.
      */
     public boolean solved(String guessReturn){
         for(int i = 0; i < guessReturn.length(); i++){
@@ -101,15 +131,32 @@ public class Prototype{
         return true;
     }
 
-    public boolean isValidGuess(String userGuess){
+    /**
+     * 
+     * @param userGuess
+     *          the user's guess to check validity of
+     * @return
+     *          <code>true</code> if guess is valid, else <code>false</code>
+     */
+    public boolean isValidLength(String userGuess){
         if(userGuess.length() != word.length()){
             return false;
         }
+        return true;
+    }
+
+    /**
+     * Checks if the given parameter is a valid word for the game.
+     * @param userGuess
+     *          word to check
+     * @return
+     *          <code>true</code> if word is valid, else <code>false</code>
+     */
+    public boolean isValidWord(String userGuess){
         /* if word list for length L does not contain the userGuess,
         *  then return false. @ rebecca deal with this
         */
-
-        return true;
+        return true; // temporary
     }
 
 }
