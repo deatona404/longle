@@ -3,6 +3,7 @@ package longle.src.lngl;
 /**
  * This class explores the basic function of the guessing game.
  */
+@SuppressWarnings("unused")
 public class Prototype{
 
     // instance variables -----------------------------------------------------
@@ -13,8 +14,9 @@ public class Prototype{
     
 
     // constants --------------------------------------------------------------
-    private final String BAD_LENGTH = "*WRONG LENGTH*";
-    private final String NO_GUESSES = "*NO GUESSES LEFT*";
+    public static final String BAD_LENGTH = "*WRONG LENGTH*";
+    public static final String NO_GUESSES = "*NO GUESSES LEFT*";
+    public static final String BAD_READ = "*COULD NOT LOCATE WORD";
 
 
     // constructor ------------------------------------------------------------
